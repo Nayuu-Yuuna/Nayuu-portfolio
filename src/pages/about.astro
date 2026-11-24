@@ -5,13 +5,13 @@ const skills = [
   { name: 'Digital Forensics & Triage', level: '85%', desc: 'KAPE, Autopsy, FTK Imager, MFTECmd, Amcache, Prefetch, JumpLists analysis' },
   { name: 'Memory Forensics (Volatility 3)', level: '80%', desc: 'Rootkit detection, process hollowing, DLL injection, Cobalt Strike beacon extraction' },
   { name: 'Network Traffic Analysis (PCAP)', level: '90%', desc: 'Wireshark, Tshark, Zeek, Suricata, detecting DNS tunneling, C2 beacons, exfiltration' },
-  { name: 'Threat Hunting & SIEM/EDR', level: '85%', desc: 'Splunk SPL, Elastic KQL/ES|QL, Sysmon Event ID correlation, Sigma rules, Velociraptor' },
+  { name: 'Threat Hunting & SIEM/EDR', level: '85%', desc: 'Splunk SPL, Elastic KQL, Sysmon Event ID correlation, Sigma rules, Velociraptor' },
   { name: 'Malware Triage & Reverse Eng', level: '70%', desc: 'Static/Dynamic triage, Ghidra decompilation, YARA rule authoring, Any.Run sandbox' },
-  { name: 'MITRE ATT&CK & Detection Eng', level: '85%', desc: 'TTP mapping, adversary emulation analysis, Atomic Red Team validation' },
+  { name: 'Detection Engineering', level: '85%', desc: 'TTP mapping, adversary emulation analysis, Atomic Red Team validation' },
 ];
 
 const certifications = [
-  { name: 'Blue Team Level 1 (BTL1) / Certified CyberDefender (CCD)', status: 'In Progress / Target', year: '2026' },
+  { name: 'Blue Team Level 1 (BTL1) / Certified CyberDefender (CCD)', status: 'In Progress', year: '2026' },
   { name: 'CompTIA Security+ / CySA+', status: 'Certified', year: '2025' },
   { name: 'CyberDefenders - Certified Pro Analyst', status: 'Active Analyst', year: '2025' },
 ];
@@ -24,29 +24,29 @@ const platforms = [
 ---
 
 <BaseLayout 
-  title="About & Blue Team Profile" 
-  description="SOC Analyst, DFIR Researcher, and CTF Forensics profile."
+  title="About" 
+  description="SOC Analyst, DFIR Researcher, and CTF Forensics profile of Nayuu."
 >
-  <div class="max-w-4xl mx-auto space-y-12">
+  <div class="max-w-3xl mx-auto space-y-12">
     <!-- Header / Bio -->
-    <section class="p-6 sm:p-8 rounded-2xl bg-cyber-card border border-cyber-border space-y-6">
+    <section class="p-8 sm:p-10 rounded-3xl glass-card space-y-6">
       <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-        <div class="w-24 h-24 rounded-2xl bg-cyber-surface border-2 border-cyber-cyan/50 flex items-center justify-center font-mono text-3xl font-bold text-cyber-cyan shadow-[0_0_20px_rgba(0,240,255,0.2)]">
-          🛡️
+        <div class="w-20 h-20 rounded-2xl bg-chill-indigo/15 border border-chill-indigo/30 flex items-center justify-center text-3xl shadow-[0_0_25px_rgba(129,140,248,0.2)]">
+          ☕
         </div>
 
         <div class="space-y-1.5">
           <div class="flex items-center gap-2">
-            <h1 class="text-2xl sm:text-3xl font-mono font-bold text-cyber-text">
-              Blue Team Analyst &amp; DFIR Researcher
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-chill-text">
+              Nayuu
             </h1>
-            <span class="w-2.5 h-2.5 rounded-full bg-cyber-cyan animate-ping"></span>
+            <span class="w-2 h-2 rounded-full bg-chill-mint animate-pulse"></span>
           </div>
-          <p class="text-cyber-cyan font-mono text-sm">
-            Focus: SOC Alert Triage | Memory &amp; Network Forensics | Threat Hunting
+          <p class="text-chill-indigo text-sm font-medium">
+            Blue Team Analyst • DFIR Researcher • CTF Player
           </p>
-          <p class="text-cyber-muted text-sm leading-relaxed max-w-xl">
-            Cybersecurity defender specializing in dissecting real-world attacks, investigating memory dumps, analyzing PCAP packet captures, and reverse-engineering threat actor tradecraft on CyberDefenders, HTB Sherlocks, and CTF challenges.
+          <p class="text-chill-muted text-sm leading-relaxed font-sans pt-1">
+            Passionate about dissecting real-world attacks, investigating memory dumps, analyzing PCAP packet captures, and sharing reproducible writeups.
           </p>
         </div>
       </div>
@@ -54,8 +54,8 @@ const platforms = [
 
     <!-- Platform Ranks -->
     <section class="space-y-4">
-      <h2 class="text-xl font-mono font-bold text-cyber-text flex items-center gap-2">
-        <span class="text-cyber-cyan">//</span> Defense &amp; Forensics Platforms
+      <h2 class="text-lg font-bold text-chill-text">
+        Platforms &amp; Activity
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {platforms.map((p) => (
@@ -63,15 +63,15 @@ const platforms = [
             href={p.url} 
             target="_blank" 
             rel="noopener noreferrer"
-            class="p-4 rounded-xl bg-cyber-card border border-cyber-border hover:border-cyber-cyan/40 transition-all block group"
+            class="p-5 rounded-2xl glass-card block group"
           >
-            <div class="font-mono text-xs text-cyber-muted group-hover:text-cyber-cyan transition-colors">
+            <div class="text-xs text-chill-muted group-hover:text-chill-indigo transition-colors">
               {p.name}
             </div>
-            <div class="font-mono text-lg font-bold text-cyber-text mt-1">
+            <div class="text-lg font-bold text-chill-text mt-1">
               {p.rank}
             </div>
-            <div class="text-xs font-mono text-cyber-muted/80 mt-1">
+            <div class="text-xs text-chill-muted/70 mt-1">
               {p.score}
             </div>
           </a>
@@ -81,20 +81,20 @@ const platforms = [
 
     <!-- Skills Radar / Progress -->
     <section class="space-y-4">
-      <h2 class="text-xl font-mono font-bold text-cyber-text flex items-center gap-2">
-        <span class="text-cyber-accent">//</span> Defense &amp; Triage Skill Set
+      <h2 class="text-lg font-bold text-chill-text">
+        Technical Skills
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {skills.map((s) => (
-          <div class="p-4 rounded-xl bg-cyber-card border border-cyber-border space-y-2">
-            <div class="flex justify-between items-center font-mono text-sm">
-              <span class="font-semibold text-cyber-text">{s.name}</span>
-              <span class="text-cyber-cyan text-xs">{s.level}</span>
+          <div class="p-5 rounded-2xl glass-card space-y-2.5">
+            <div class="flex justify-between items-center text-sm font-medium">
+              <span class="text-chill-text">{s.name}</span>
+              <span class="text-chill-indigo text-xs font-mono">{s.level}</span>
             </div>
-            <div class="w-full bg-cyber-surface h-1.5 rounded-full overflow-hidden">
-              <div class="bg-gradient-to-r from-cyber-cyan to-cyber-accent h-full rounded-full" style={`width: ${s.level}`}></div>
+            <div class="w-full bg-chill-surface h-1.5 rounded-full overflow-hidden">
+              <div class="bg-gradient-to-r from-chill-indigo to-chill-sky h-full rounded-full" style={`width: ${s.level}`}></div>
             </div>
-            <p class="text-xs text-cyber-muted font-mono leading-relaxed">
+            <p class="text-xs text-chill-muted leading-relaxed">
               {s.desc}
             </p>
           </div>
@@ -104,21 +104,21 @@ const platforms = [
 
     <!-- Certifications -->
     <section class="space-y-4">
-      <h2 class="text-xl font-mono font-bold text-cyber-text flex items-center gap-2">
-        <span class="text-purple-400">//</span> Certifications &amp; Milestones
+      <h2 class="text-lg font-bold text-chill-text">
+        Certifications &amp; Goals
       </h2>
       <div class="space-y-3">
         {certifications.map((c) => (
-          <div class="p-4 rounded-xl bg-cyber-card border border-cyber-border flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-mono text-sm">
+          <div class="p-4 rounded-2xl glass-card flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-sm">
             <div class="flex items-center space-x-3">
-              <span class="text-cyber-cyan font-bold">[🛡️]</span>
-              <span class="text-cyber-text font-medium">{c.name}</span>
+              <span class="text-chill-indigo font-bold">●</span>
+              <span class="text-chill-text font-medium">{c.name}</span>
             </div>
             <div class="flex items-center space-x-3 text-xs">
-              <span class="px-2.5 py-1 rounded bg-cyber-surface text-cyber-accent border border-cyber-border">
+              <span class="px-3 py-1 rounded-full bg-chill-surface text-chill-mint border border-white/5">
                 {c.status}
               </span>
-              <span class="text-cyber-muted">{c.year}</span>
+              <span class="text-chill-muted font-mono">{c.year}</span>
             </div>
           </div>
         ))}
@@ -126,22 +126,19 @@ const platforms = [
     </section>
 
     <!-- Connect / Contact -->
-    <section class="p-6 rounded-2xl bg-cyber-card/60 border border-cyber-border font-mono text-sm space-y-4">
-      <h2 class="text-lg font-bold text-cyber-text flex items-center gap-2">
-        <span class="text-cyber-cyan">&gt;</span> Connect &amp; Collaborate
+    <section class="p-8 rounded-3xl glass-card space-y-4 text-center sm:text-left">
+      <h2 class="text-xl font-bold text-chill-text">
+        Let's Connect
       </h2>
-      <p class="text-cyber-muted text-xs sm:text-sm leading-relaxed">
-        Always open to discussing incident case studies, threat intelligence feeds, YARA/Sigma detections, or joining forces for Blue Team &amp; CTF tournaments.
+      <p class="text-chill-muted text-sm leading-relaxed max-w-xl">
+        Always up for chatting about interesting CTF challenges, DFIR forensics cases, or teaming up for upcoming competitions.
       </p>
-      <div class="flex flex-wrap gap-3 pt-2 text-xs">
-        <a href="mailto:analyst@defendernode.local" class="px-4 py-2 rounded-lg bg-cyber-cyan text-slate-950 font-bold hover:bg-cyan-300 transition-colors">
-          Send Email
-        </a>
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-lg bg-cyber-surface border border-cyber-border text-cyber-text hover:text-cyber-cyan transition-colors">
+      <div class="flex flex-wrap justify-center sm:justify-start gap-3 pt-2 text-xs">
+        <a href="https://github.com/Nayuu-Yuuna" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-full bg-chill-indigo text-slate-950 font-semibold hover:bg-indigo-300 transition-colors">
           GitHub Profile
         </a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-lg bg-cyber-surface border border-cyber-border text-cyber-text hover:text-cyber-accent transition-colors">
-          LinkedIn
+        <a href="https://cyberdefenders.org" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-full bg-chill-surface border border-white/10 text-chill-text hover:text-chill-sky transition-colors">
+          CyberDefenders
         </a>
       </div>
     </section>

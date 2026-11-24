@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const cheatsheets = [
   {
     category: 'Memory Forensics (Volatility 3)',
+    color: 'indigo',
     commands: [
       {
         title: 'List Process Tree',
@@ -13,15 +14,15 @@ const cheatsheets = [
       {
         title: 'Detect Injected Code & Hollowed Processes',
         cmd: 'python3 vol.py -f memory.dmp windows.malfind',
-        desc: 'Find hidden or injected code in user-mode memory (PAGE_EXECUTE_READWRITE memory pages).'
+        desc: 'Find hidden or injected code in user-mode memory (PAGE_EXECUTE_READWRITE pages).'
       },
       {
         title: 'Network Connections & Sockets',
         cmd: 'python3 vol.py -f memory.dmp windows.netscan',
-        desc: 'Enumerate established TCP/UDP connections and listening sockets active at the time of memory acquisition.'
+        desc: 'Enumerate established TCP/UDP connections active at the time of memory acquisition.'
       },
       {
-        title: 'Dump Process Executable & Memory',
+        title: 'Dump Process Executable',
         cmd: 'python3 vol.py -f memory.dmp -o ./dump windows.dumpfiles --pid <PID>',
         desc: 'Dump binary artifacts for offline static analysis, Ghidra disassembly, and hashing.'
       },
@@ -34,6 +35,7 @@ const cheatsheets = [
   },
   {
     category: 'Network Forensics (Wireshark & Tshark)',
+    color: 'sky',
     commands: [
       {
         title: 'Filter HTTP POST Requests & Uploads',
@@ -53,12 +55,13 @@ const cheatsheets = [
       {
         title: 'Tshark Extract HTTP Hostnames & User Agents',
         cmd: 'tshark -r capture.pcap -Y "http.request" -T fields -e ip.src -e ip.dst -e http.host -e http.user_agent | sort | uniq -c',
-        desc: 'Fast command-line aggregation of all outbound web traffic and anomalies.'
+        desc: 'Fast command-line aggregation of outbound web traffic and anomalies.'
       }
     ]
   },
   {
     category: 'Windows Event Logs & Sysmon Hunting',
+    color: 'mint',
     commands: [
       {
         title: 'Suspicious Process Creation (Event ID 4688 / Sysmon 1)',
@@ -73,32 +76,12 @@ const cheatsheets = [
       {
         title: 'Remote Thread Injection (Sysmon Event ID 8)',
         cmd: 'EventID=8 SourceImage="*.exe" TargetImage="*\\svchost.exe" OR TargetImage="*\\explorer.exe"',
-        desc: 'Detect process injection techniques (e.g. Cobalt Strike Beacon injecting into legitimate Windows processes).'
+        desc: 'Detect process injection techniques (e.g. Cobalt Strike injecting into legitimate processes).'
       },
       {
         title: 'Lateral Movement - Remote Logon (Event ID 4624 Type 3 & 10)',
         cmd: 'EventID=4624 (LogonType=3 OR LogonType=10) AND NOT SourceNetworkAddress="-"',
-        desc: 'Track network logons (SMB, WinRM) and Remote Desktop connections across the enterprise.'
-      }
-    ]
-  },
-  {
-    category: 'DFIR Triage & Evidence Collection',
-    commands: [
-      {
-        title: 'Parse MFT with MFTECmd (Eric Zimmerman)',
-        cmd: 'MFTECmd.exe -f C:\\$MFT --csv C:\\out\\ --csvf mft_analysis.csv',
-        desc: 'Parse Master File Table to reconstruct timeline of file creation, modification, and deletion.'
-      },
-      {
-        title: 'Inspect Amcache & Shimcache (Application Execution)',
-        cmd: 'AmcacheParser.exe -f "C:\\Windows\\appcompat\\Programs\\Amcache.hve" --csv C:\\out\\',
-        desc: 'Identify historical binary executions even if malware deleted itself from disk.'
-      },
-      {
-        title: 'Linux Investigation - List Open Sockets with PIDs',
-        cmd: 'ss -tulpn | grep -E "ESTAB|LISTEN"',
-        desc: 'Fast detection of backdoor listeners and active C2 connections on compromised Linux servers.'
+        desc: 'Track network logons (SMB, WinRM) and Remote Desktop connections across the domain.'
       }
     ]
   }
@@ -106,47 +89,46 @@ const cheatsheets = [
 ---
 
 <BaseLayout 
-  title="Blue Team & DFIR Cheatsheet" 
+  title="DFIR Cheatsheet" 
   description="Quick reference commands for Volatility 3, Wireshark, Sysmon threat hunting, and digital forensics triage."
 >
-  <div class="mb-8">
-    <div class="flex items-center space-x-2 text-cyber-cyan font-mono text-sm mb-2">
-      <span>//</span>
-      <span>BLUE TEAM &amp; INCIDENT RESPONSE FIELD GUIDE</span>
+  <div class="mb-10 space-y-2">
+    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-chill-indigo/10 text-chill-indigo text-xs font-medium">
+      Field Guide
     </div>
-    <h1 class="text-3xl sm:text-4xl font-mono font-bold text-cyber-text">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-chill-text tracking-tight">
       DFIR &amp; Threat Hunting Cheatsheet
     </h1>
-    <p class="text-cyber-muted mt-2 max-w-2xl text-sm sm:text-base">
-      High-yield hunting queries, Wireshark filters, Volatility commands, and Windows Event IDs used in CyberDefenders labs, HTB Sherlocks, and live incident triage.
+    <p class="text-chill-muted text-sm sm:text-base max-w-2xl leading-relaxed">
+      Curated queries, packet inspection filters, and triage commands frequently used during investigations.
     </p>
   </div>
 
-  <div class="space-y-10">
+  <div class="space-y-12">
     {cheatsheets.map((section) => (
       <section class="space-y-4">
-        <h2 class="text-xl font-mono font-bold text-cyber-cyan flex items-center gap-2">
-          <span class="w-2.5 h-2.5 bg-cyber-cyan rounded-sm"></span>
+        <h2 class="text-lg font-bold text-chill-text flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-chill-indigo"></span>
           {section.category}
         </h2>
 
-        <div class="grid grid-cols-1 gap-4">
+        <div class="grid grid-cols-1 gap-3.5">
           {section.commands.map((item) => (
-            <div class="p-4 rounded-xl bg-cyber-card border border-cyber-border space-y-2">
+            <div class="p-5 rounded-2xl glass-card space-y-2.5">
               <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
-                <span class="font-mono text-sm font-semibold text-cyber-text">
+                <span class="text-sm font-semibold text-chill-text">
                   {item.title}
                 </span>
-                <span class="text-xs text-cyber-muted font-mono">
+                <span class="text-xs text-chill-muted">
                   {item.desc}
                 </span>
               </div>
 
               <div class="relative group">
-                <pre class="bg-cyber-surface p-3 pr-24 rounded-lg font-mono text-xs text-cyber-accent overflow-x-auto border border-cyber-border/70 selection:bg-cyber-cyan/30"><code>{item.cmd}</code></pre>
+                <pre class="bg-chill-bg/90 p-3.5 pr-24 rounded-xl text-xs text-chill-sky overflow-x-auto border border-white/5 font-mono"><code>{item.cmd}</code></pre>
                 <button
                   type="button"
-                  class="copy-btn absolute right-2 top-2 px-2.5 py-1 rounded bg-cyber-card border border-cyber-border text-xs font-mono text-cyber-muted hover:text-cyber-cyan hover:border-cyber-cyan/50 transition-all"
+                  class="copy-btn absolute right-2.5 top-2.5 px-3 py-1 rounded-lg bg-chill-surface border border-white/10 text-xs text-chill-muted hover:text-chill-text hover:border-chill-indigo/50 transition-all font-medium"
                   data-clipboard={item.cmd}
                 >
                   Copy
@@ -169,10 +151,10 @@ const cheatsheets = [
         await navigator.clipboard.writeText(text);
         const originalText = btn.textContent;
         btn.textContent = 'Copied!';
-        btn.classList.add('text-cyber-cyan', 'border-cyber-cyan');
+        btn.classList.add('text-chill-mint', 'border-chill-mint/40');
         setTimeout(() => {
           btn.textContent = originalText;
-          btn.classList.remove('text-cyber-cyan', 'border-cyber-cyan');
+          btn.classList.remove('text-chill-mint', 'border-chill-mint/40');
         }, 2000);
       } catch (err) {
         console.error('Failed to copy', err);

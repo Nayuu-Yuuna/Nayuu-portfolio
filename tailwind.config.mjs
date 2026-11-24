@@ -5,23 +5,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        cyber: {
-          bg: '#0a0d14',
-          card: '#111726',
-          border: '#1f293d',
-          accent: '#00ff88',
-          cyan: '#00f0ff',
-          red: '#ff3b69',
-          purple: '#9d4edd',
-          yellow: '#ffb703',
-          text: '#e2e8f0',
-          muted: '#8b9bb4',
-          surface: '#161f33'
+        chill: {
+          bg: '#0b0f17',         // Deep cozy midnight
+          card: '#111827',       // Soft slate card
+          surface: '#172033',    // Raised surface
+          border: '#1f293d',     // Subtle border
+          indigo: '#818cf8',     // Soft chill indigo
+          purple: '#a78bfa',     // Calm violet
+          sky: '#38bdf8',        // Soothing cyan
+          mint: '#34d399',       // Soft mint green
+          rose: '#fb7185',       // Gentle rose
+          amber: '#fbbf24',      // Soft amber
+          text: '#f1f5f9',       // Clean primary text
+          muted: '#94a3b8',      // Relaxed secondary text
         }
       },
       fontFamily: {
-        mono: ['Consolas', 'JetBrains Mono', 'Fira Code', 'monospace'],
-        sans: ['Segoe UI', 'Inter', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Fira Code', 'Consolas', 'monospace'],
+        sans: ['Plus Jakarta Sans', 'Inter', 'Segoe UI', 'system-ui', 'sans-serif'],
       }
     },
   },

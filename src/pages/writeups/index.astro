@@ -33,24 +33,23 @@ const platforms = [
   title="Writeups & Investigations" 
   description="Blue Team DFIR reports, CyberDefenders labs, HTB Sherlocks, and CTF Forensics writeups."
 >
-  <div class="mb-8">
-    <div class="flex items-center space-x-2 text-cyber-cyan font-mono text-sm mb-2">
-      <span>//</span>
-      <span>BLUE TEAM LABS &amp; CTF WRITEUPS</span>
+  <div class="mb-8 space-y-2">
+    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-chill-indigo/10 text-chill-indigo text-xs font-medium">
+      Archive &amp; Repository
     </div>
-    <h1 class="text-3xl sm:text-4xl font-mono font-bold text-cyber-text">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-chill-text tracking-tight">
       Investigations &amp; Lab Walkthroughs
     </h1>
-    <p class="text-cyber-muted mt-2 max-w-2xl text-sm sm:text-base">
-      In-depth case studies covering CyberDefenders artifacts, Hack The Box Sherlocks, TryHackMe SOC labs, and CTF challenges.
+    <p class="text-chill-muted text-sm sm:text-base max-w-2xl leading-relaxed">
+      Detailed case studies analyzing memory dumps, packet captures, Windows event logs, and CTF challenges.
     </p>
   </div>
 
   <!-- Search & Filter Controls -->
-  <div class="p-5 rounded-2xl bg-cyber-card/85 border border-cyber-border mb-8 space-y-4">
+  <div class="p-6 rounded-3xl glass-card mb-10 space-y-5 border border-white/5">
     <!-- Search Bar -->
     <div class="relative">
-      <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-cyber-muted">
+      <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-chill-muted">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
         </svg>
@@ -58,21 +57,21 @@ const platforms = [
       <input 
         type="text" 
         id="search-input" 
-        placeholder="Search by title, artifact (pcap, dmp, evtx), tool (volatility, wireshark, splunk), MITRE ID..." 
-        class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-cyber-surface border border-cyber-border text-cyber-text placeholder-cyber-muted/60 text-sm font-mono focus:outline-none focus:border-cyber-cyan focus:ring-1 focus:ring-cyber-cyan transition-all"
+        placeholder="Search by title, artifact (pcap, dmp, evtx), tool (volatility, wireshark), CVE, MITRE ID..." 
+        class="w-full pl-11 pr-4 py-3 rounded-2xl bg-chill-surface/80 border border-white/5 text-chill-text placeholder-chill-muted/60 text-sm focus:outline-none focus:border-chill-indigo focus:ring-1 focus:ring-chill-indigo transition-all font-sans"
       />
     </div>
 
     <!-- Category Filter Pills -->
-    <div class="flex flex-wrap items-center gap-2 font-mono text-xs">
-      <span class="text-cyber-muted mr-1">Domain:</span>
+    <div class="flex flex-wrap items-center gap-2 text-xs">
+      <span class="text-chill-muted/70 mr-1 font-medium">Domain:</span>
       {categories.map((cat) => (
         <button
           type="button"
-          class={`filter-btn px-3 py-1.5 rounded-lg border transition-all ${
+          class={`filter-btn px-3 py-1.5 rounded-full border transition-all ${
             cat === 'All'
-              ? 'active-cat bg-cyber-cyan/10 text-cyber-cyan border-cyber-cyan/50'
-              : 'bg-cyber-surface text-cyber-muted border-cyber-border hover:border-cyber-muted'
+              ? 'active-cat bg-chill-indigo text-slate-950 font-semibold border-chill-indigo'
+              : 'bg-chill-surface/60 text-chill-muted border-white/5 hover:text-chill-text hover:border-white/10'
           }`}
           data-category={cat}
         >
@@ -82,15 +81,15 @@ const platforms = [
     </div>
 
     <!-- Platform Filter Pills -->
-    <div class="flex flex-wrap items-center gap-2 font-mono text-xs pt-2 border-t border-cyber-border/40">
-      <span class="text-cyber-muted mr-1">Platform:</span>
+    <div class="flex flex-wrap items-center gap-2 text-xs pt-3 border-t border-white/5">
+      <span class="text-chill-muted/70 mr-1 font-medium">Platform:</span>
       {platforms.map((plat) => (
         <button
           type="button"
-          class={`platform-btn px-2.5 py-1 rounded-lg border transition-all ${
+          class={`platform-btn px-3 py-1 rounded-full border transition-all ${
             plat === 'All'
-              ? 'active-plat bg-cyber-accent/10 text-cyber-accent border-cyber-accent/50'
-              : 'bg-cyber-surface text-cyber-muted border-cyber-border hover:border-cyber-muted'
+              ? 'active-plat bg-chill-sky text-slate-950 font-semibold border-chill-sky'
+              : 'bg-chill-surface/60 text-chill-muted border-white/5 hover:text-chill-text hover:border-white/10'
           }`}
           data-platform={plat}
         >
@@ -128,14 +127,14 @@ const platforms = [
   </div>
 
   <!-- Empty State -->
-  <div id="empty-state" class="hidden text-center py-16 font-mono">
-    <div class="inline-block p-4 rounded-full bg-cyber-card border border-cyber-border mb-3 text-cyber-cyan">
+  <div id="empty-state" class="hidden text-center py-20">
+    <div class="inline-block p-4 rounded-full bg-chill-card border border-white/5 mb-3 text-chill-indigo">
       <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
       </svg>
     </div>
-    <h3 class="text-lg font-bold text-cyber-text">No reports or writeups found</h3>
-    <p class="text-sm text-cyber-muted mt-1">Try searching with another keyword or resetting the filter options.</p>
+    <h3 class="text-base font-bold text-chill-text">No writeups found</h3>
+    <p class="text-xs text-chill-muted mt-1">Try another keyword or reset the filter selection.</p>
   </div>
 </BaseLayout>
 
@@ -186,11 +185,11 @@ const platforms = [
   catButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
       catButtons.forEach(b => {
-        b.classList.remove('bg-cyber-cyan/10', 'text-cyber-cyan', 'border-cyber-cyan/50');
-        b.classList.add('bg-cyber-surface', 'text-cyber-muted', 'border-cyber-border');
+        b.classList.remove('bg-chill-indigo', 'text-slate-950', 'font-semibold', 'border-chill-indigo');
+        b.classList.add('bg-chill-surface/60', 'text-chill-muted', 'border-white/5');
       });
-      btn.classList.add('bg-cyber-cyan/10', 'text-cyber-cyan', 'border-cyber-cyan/50');
-      btn.classList.remove('bg-cyber-surface', 'text-cyber-muted', 'border-cyber-border');
+      btn.classList.add('bg-chill-indigo', 'text-slate-950', 'font-semibold', 'border-chill-indigo');
+      btn.classList.remove('bg-chill-surface/60', 'text-chill-muted', 'border-white/5');
 
       activeCategory = (btn as HTMLElement).dataset.category || 'All';
       filterItems();
@@ -201,11 +200,11 @@ const platforms = [
   platButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
       platButtons.forEach(b => {
-        b.classList.remove('bg-cyber-accent/10', 'text-cyber-accent', 'border-cyber-accent/50');
-        b.classList.add('bg-cyber-surface', 'text-cyber-muted', 'border-cyber-border');
+        b.classList.remove('bg-chill-sky', 'text-slate-950', 'font-semibold', 'border-chill-sky');
+        b.classList.add('bg-chill-surface/60', 'text-chill-muted', 'border-white/5');
       });
-      btn.classList.add('bg-cyber-accent/10', 'text-cyber-accent', 'border-cyber-accent/50');
-      btn.classList.remove('bg-cyber-surface', 'text-cyber-muted', 'border-cyber-border');
+      btn.classList.add('bg-chill-sky', 'text-slate-950', 'font-semibold', 'border-chill-sky');
+      btn.classList.remove('bg-chill-surface/60', 'text-chill-muted', 'border-white/5');
 
       activePlatform = (btn as HTMLElement).dataset.platform || 'All';
       filterItems();

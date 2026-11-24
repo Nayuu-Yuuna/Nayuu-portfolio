@@ -2,41 +2,36 @@
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="border-t border-cyber-border mt-20 bg-cyber-bg/90 font-mono text-xs text-cyber-muted">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-    <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-      <!-- Left: Terminal Info -->
+<footer class="border-t border-white/5 mt-24 bg-chill-bg/60 backdrop-blur-md text-xs text-chill-muted font-sans">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+    <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+      <!-- Left: Logo & motto -->
       <div class="flex items-center space-x-2">
-        <span class="text-cyber-accent">[#]</span>
-        <span>CTF Portfolio & Security Research Notes</span>
-        <span class="text-cyber-border">|</span>
-        <span class="text-cyber-cyan">root@portfolio:~# exit 0</span>
-      </div>
-
-      <!-- Center / Disclaimer -->
-      <div class="text-center md:text-right text-[11px] text-cyber-muted/70">
-        <p>Disclaimer: All writeups and POCs are intended strictly for educational and defense purposes.</p>
+        <span class="font-mono font-bold text-chill-indigo">nayuu.sec</span>
+        <span class="text-chill-muted/40">•</span>
+        <span>Late night research &amp; CTF notes</span>
       </div>
 
       <!-- Right: Links -->
-      <div class="flex items-center space-x-4">
-        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="hover:text-cyber-accent transition-colors">
+      <div class="flex items-center space-x-5 text-chill-muted">
+        <a href="https://github.com/Nayuu-Yuuna" target="_blank" rel="noopener noreferrer" class="hover:text-chill-text transition-colors">
           GitHub
         </a>
-        <a href="https://app.hackthebox.com" target="_blank" rel="noopener noreferrer" class="hover:text-cyber-accent transition-colors">
+        <a href="https://cyberdefenders.org" target="_blank" rel="noopener noreferrer" class="hover:text-chill-sky transition-colors">
+          CyberDefenders
+        </a>
+        <a href="https://app.hackthebox.com" target="_blank" rel="noopener noreferrer" class="hover:text-chill-mint transition-colors">
           HackTheBox
         </a>
-        <a href="https://tryhackme.com" target="_blank" rel="noopener noreferrer" class="hover:text-cyber-accent transition-colors">
+        <a href="https://tryhackme.com" target="_blank" rel="noopener noreferrer" class="hover:text-chill-rose transition-colors">
           TryHackMe
-        </a>
-        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="hover:text-cyber-accent transition-colors">
-          LinkedIn
         </a>
       </div>
     </div>
 
-    <div class="mt-4 pt-4 border-t border-cyber-border/40 text-center text-cyber-muted/50 text-[11px]">
-      © {currentYear} CTF Writeups Portfolio. Built with Astro & Tailwind.
+    <div class="mt-6 pt-6 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center text-[11px] text-chill-muted/50 gap-2">
+      <p>© {currentYear} Nayuu. All writeups are documented for educational and defensive analysis.</p>
+      <p>Built with Astro &amp; Tailwind</p>
     </div>
   </div>
 </footer>

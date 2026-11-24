@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import { getUrl } from '../utils/url';
 
 interface Props {
   title: string;
@@ -18,57 +19,57 @@ interface Props {
 const { title, description, publishDate, category, platform, difficulty, tags, artifacts, mitreAttck, verdict, flag } = Astro.props;
 
 const difficultyColors = {
-  Easy: 'text-emerald-400 bg-emerald-950/40 border-emerald-500/30',
-  Medium: 'text-amber-400 bg-amber-950/40 border-amber-500/30',
-  Hard: 'text-rose-400 bg-rose-950/40 border-rose-500/30',
-  Insane: 'text-purple-400 bg-purple-950/40 border-purple-500/30',
+  Easy: 'text-chill-mint bg-chill-mint/10 border-chill-mint/20',
+  Medium: 'text-chill-amber bg-chill-amber/10 border-chill-amber/20',
+  Hard: 'text-chill-rose bg-chill-rose/10 border-chill-rose/20',
+  Insane: 'text-chill-purple bg-chill-purple/10 border-chill-purple/20',
 };
 ---
 
 <BaseLayout title={title} description={description}>
   <div class="max-w-4xl mx-auto">
     <!-- Back button -->
-    <a href="/writeups" class="inline-flex items-center text-sm font-mono text-cyber-muted hover:text-cyber-accent mb-6 transition-colors">
-      <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <a href={getUrl('/writeups')} class="inline-flex items-center text-sm text-chill-muted hover:text-chill-indigo mb-6 transition-colors group">
+      <svg class="w-4 h-4 mr-1.5 transition-transform group-hover:-translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
       </svg>
-      &lt; Back to writeups &amp; investigations
+      Back to all writeups
     </a>
 
     <!-- Header Card -->
-    <header class="p-6 sm:p-8 rounded-2xl bg-cyber-card/90 border border-cyber-border mb-8 shadow-xl">
-      <div class="flex flex-wrap items-center gap-2 mb-4 font-mono text-xs">
-        <span class="px-2.5 py-1 rounded bg-cyber-surface border border-cyber-cyan/30 text-cyber-cyan">
+    <header class="p-6 sm:p-8 rounded-3xl bg-chill-card/80 border border-white/10 mb-8 shadow-xl backdrop-blur-xl">
+      <div class="flex flex-wrap items-center gap-2 mb-4 text-xs">
+        <span class="px-3 py-1 rounded-full bg-chill-indigo/10 border border-chill-indigo/20 text-chill-indigo font-medium">
           {category}
         </span>
-        <span class="px-2.5 py-1 rounded bg-cyber-surface border border-cyber-border text-cyber-muted">
+        <span class="px-3 py-1 rounded-full bg-chill-surface border border-white/5 text-chill-muted">
           {platform}
         </span>
-        <span class={`px-2.5 py-1 rounded font-semibold border ${difficultyColors[difficulty]}`}>
+        <span class={`px-3 py-1 rounded-full font-semibold border ${difficultyColors[difficulty]}`}>
           {difficulty}
         </span>
-        <span class="text-cyber-muted ml-auto">
-          Investigation Date: {publishDate}
+        <span class="text-chill-muted/70 ml-auto">
+          {publishDate}
         </span>
       </div>
 
-      <h1 class="text-2xl sm:text-4xl font-mono font-bold text-cyber-text tracking-tight mb-3">
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-chill-text tracking-tight mb-3 leading-tight">
         {title}
       </h1>
 
-      <p class="text-cyber-muted text-base leading-relaxed mb-6">
+      <p class="text-chill-muted text-base leading-relaxed mb-6 font-sans">
         {description}
       </p>
 
       <!-- Blue Team Metadata Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4 border-t border-cyber-border/70 font-mono text-xs">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-5 border-t border-white/5 text-xs">
         <!-- Artifacts Analyzed -->
         {artifacts && artifacts.length > 0 && (
-          <div class="space-y-1">
-            <span class="text-cyber-cyan font-bold block">📁 Artifacts Analyzed:</span>
+          <div class="space-y-1.5">
+            <span class="text-chill-sky font-semibold block">📁 Artifacts Analyzed:</span>
             <div class="flex flex-wrap gap-1.5">
               {artifacts.map((art) => (
-                <code class="px-2 py-0.5 rounded bg-cyber-surface text-cyber-text border border-cyber-border">{art}</code>
+                <code class="px-2.5 py-0.5 rounded-md bg-chill-surface text-chill-text border border-white/5 font-mono">{art}</code>
               ))}
             </div>
           </div>
@@ -76,11 +77,11 @@ const difficultyColors = {
 
         <!-- MITRE ATT&CK Matrix -->
         {mitreAttck && mitreAttck.length > 0 && (
-          <div class="space-y-1">
-            <span class="text-cyber-accent font-bold block">🛡️ MITRE ATT&CK TTPs:</span>
+          <div class="space-y-1.5">
+            <span class="text-chill-indigo font-semibold block">🛡️ MITRE ATT&amp;CK TTPs:</span>
             <div class="flex flex-wrap gap-1.5">
               {mitreAttck.map((ttp) => (
-                <span class="px-2 py-0.5 rounded bg-cyber-surface text-cyber-accent border border-cyber-accent/30 text-[11px] font-semibold">
+                <span class="px-2.5 py-0.5 rounded-md bg-chill-surface text-chill-indigo border border-chill-indigo/20 text-[11px] font-mono">
                   {ttp}
                 </span>
               ))}
@@ -91,40 +92,40 @@ const difficultyColors = {
 
       <!-- Incident Verdict Banner -->
       {verdict && (
-        <div class="mt-4 p-3 rounded-lg bg-cyber-surface/90 border border-cyber-red/30 flex items-center space-x-2 font-mono text-xs text-cyber-text">
-          <span class="w-2 h-2 rounded-full bg-cyber-red animate-pulse"></span>
-          <span class="text-cyber-red font-bold">Investigation Verdict:</span>
-          <span class="text-cyber-cyan">{verdict}</span>
+        <div class="mt-5 p-3.5 rounded-xl bg-chill-surface/80 border border-chill-rose/20 flex items-center space-x-2.5 text-xs text-chill-text">
+          <span class="w-2 h-2 rounded-full bg-chill-rose animate-pulse"></span>
+          <span class="text-chill-rose font-semibold">Incident Verdict:</span>
+          <span class="text-chill-sky">{verdict}</span>
         </div>
       )}
 
       <!-- Spoiler Flag / Solution Banner -->
       {flag && (
-        <div class="mt-4 p-3 rounded-lg bg-cyber-surface/80 border border-cyber-accent/20 flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-mono text-xs">
+        <div class="mt-4 p-3.5 rounded-xl bg-chill-surface/60 border border-chill-mint/20 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
           <div class="flex items-center space-x-2">
-            <span class="text-cyber-accent">🚩 Flag / Key Artifact:</span>
+            <span class="text-chill-mint font-semibold">🚩 Flag:</span>
             <span 
               id="flag-box" 
-              class="cursor-pointer filter blur-[5px] hover:blur-none select-none transition-all duration-200 px-2 py-0.5 rounded bg-cyber-card text-cyber-accent border border-cyber-border"
+              class="cursor-pointer filter blur-[5px] hover:blur-none select-none transition-all duration-200 px-2.5 py-0.5 rounded bg-chill-card text-chill-mint border border-white/10 font-mono"
               title="Click to reveal / hide"
             >
               {flag}
             </span>
           </div>
-          <span class="text-[11px] text-cyber-muted/60">(Hover or click to reveal)</span>
+          <span class="text-[11px] text-chill-muted/60">(Click to reveal / hide)</span>
         </div>
       )}
     </header>
 
     <!-- Writeup Markdown Body -->
-    <article class="markdown-content bg-cyber-card/40 p-6 sm:p-10 rounded-2xl border border-cyber-border/80 shadow-lg">
+    <article class="markdown-content bg-chill-card/60 p-6 sm:p-10 rounded-3xl border border-white/5 shadow-xl backdrop-blur-md">
       <slot />
     </article>
 
     <!-- Post footer -->
-    <div class="mt-8 pt-6 border-t border-cyber-border flex justify-between items-center font-mono text-xs text-cyber-muted">
-      <span>Blue Team / DFIR Investigation Report</span>
-      <a href="#top" class="text-cyber-cyan hover:underline">↑ Back to top</a>
+    <div class="mt-8 pt-6 border-t border-white/5 flex justify-between items-center text-xs text-chill-muted">
+      <span>Blue Team / DFIR Case Study</span>
+      <a href="#top" class="text-chill-indigo hover:underline">↑ Back to top</a>
     </div>
   </div>
 </BaseLayout>

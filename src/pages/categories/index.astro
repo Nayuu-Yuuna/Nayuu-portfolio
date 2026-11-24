@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getUrl } from '../../utils/url';
 import { getCollection } from 'astro:content';
 
 const writeups = await getCollection('writeups');
@@ -11,7 +12,6 @@ const categoriesInfo = [
     title: 'Digital Forensics & Incident Response',
     desc: 'Incident triage, timeline reconstruction, disk imaging, and forensic analysis (Autopsy, KAPE, FTK).',
     icon: '🔍',
-    color: 'text-blue-400 border-blue-500/30',
   },
   {
     name: 'Memory Forensics',
@@ -19,7 +19,6 @@ const categoriesInfo = [
     title: 'Memory Forensics',
     desc: 'Deep volatile RAM analysis with Volatility 3, detecting code injection, rootkits, and extracting C2 configs.',
     icon: '🧠',
-    color: 'text-purple-400 border-purple-500/30',
   },
   {
     name: 'Network Forensics',
@@ -27,7 +26,6 @@ const categoriesInfo = [
     title: 'Network Forensics & PCAP',
     desc: 'Packet inspection with Wireshark, Zeek logs, Suricata alerts, DNS tunneling, and C2 beacon detection.',
     icon: '🌐',
-    color: 'text-cyber-cyan border-cyber-cyan/30',
   },
   {
     name: 'Threat Hunting',
@@ -35,7 +33,6 @@ const categoriesInfo = [
     title: 'Threat Hunting & SIEM',
     desc: 'Hypothesis-based hunting across Windows Event Logs, Sysmon, Splunk SPL queries, and Elastic ELK.',
     icon: '🎯',
-    color: 'text-cyber-accent border-cyber-accent/30',
   },
   {
     name: 'Malware Analysis',
@@ -43,7 +40,6 @@ const categoriesInfo = [
     title: 'Malware Analysis & Triage',
     desc: 'Static/Dynamic triage, YARA signature creation, decompilation in Ghidra, and sandbox execution.',
     icon: '☣️',
-    color: 'text-cyber-red border-cyber-red/30',
   },
   {
     name: 'SOC Labs',
@@ -51,7 +47,6 @@ const categoriesInfo = [
     title: 'SOC & Defense Labs',
     desc: 'Hands-on alert triage from CyberDefenders, LetsDefend, and TryHackMe SOC Analyst paths.',
     icon: '🛡️',
-    color: 'text-amber-400 border-amber-500/30',
   },
   {
     name: 'CTF Challenge',
@@ -59,7 +54,6 @@ const categoriesInfo = [
     title: 'CTF Forensics & Reversing',
     desc: 'Jeopardy-style CTF writeups focusing on forensics, stegano, pcap challenges, and reverse engineering.',
     icon: '🚩',
-    color: 'text-sky-400 border-sky-500/30',
   },
   {
     name: 'Active Directory Defense',
@@ -67,7 +61,6 @@ const categoriesInfo = [
     title: 'Active Directory Defense',
     desc: 'Detecting Kerberoasting, AS-REP Roasting, DCSync, BloodHound graph paths, and hardening AD.',
     icon: '🏛️',
-    color: 'text-orange-400 border-orange-500/30',
   },
 ];
 
@@ -81,45 +74,44 @@ const categoryCounts = categoriesInfo.map((cat) => {
 ---
 
 <BaseLayout 
-  title="Defense Domains & Categories" 
+  title="Defense Domains" 
   description="Explore writeups categorized by Blue Team and CTF domains."
 >
-  <div class="mb-8">
-    <div class="flex items-center space-x-2 text-cyber-cyan font-mono text-sm mb-2">
-      <span>//</span>
-      <span>DEFENSE &amp; INVESTIGATION DOMAINS</span>
+  <div class="mb-10 space-y-2">
+    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-chill-indigo/10 text-chill-indigo text-xs font-medium">
+      Specializations
     </div>
-    <h1 class="text-3xl sm:text-4xl font-mono font-bold text-cyber-text">
+    <h1 class="text-3xl sm:text-4xl font-extrabold text-chill-text tracking-tight">
       Browse by Domain
     </h1>
-    <p class="text-cyber-muted mt-2 max-w-2xl text-sm sm:text-base">
-      Select a cybersecurity discipline to view associated investigation reports, lab walkthroughs, and artifacts.
+    <p class="text-chill-muted text-sm sm:text-base max-w-2xl leading-relaxed">
+      Explore investigation walkthroughs, lab reports, and writeups grouped by technical disciplines.
     </p>
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     {categoryCounts.map((cat) => (
       <a 
-        href={`/categories/${cat.slug}`}
-        class="group p-6 rounded-2xl bg-cyber-card/85 border border-cyber-border hover:border-cyber-cyan/50 transition-all duration-200 hover:-translate-y-1 block"
+        href={getUrl(`/categories/${cat.slug}`)}
+        class="glass-card p-6 rounded-2xl block group relative"
       >
         <div class="flex items-start justify-between mb-4">
           <span class="text-3xl">{cat.icon}</span>
-          <span class="font-mono text-xs px-2.5 py-1 rounded-full bg-cyber-surface border border-cyber-border text-cyber-cyan">
+          <span class="text-xs px-2.5 py-1 rounded-full bg-chill-surface border border-white/5 text-chill-indigo font-medium font-mono">
             {cat.count} {cat.count === 1 ? 'report' : 'reports'}
           </span>
         </div>
 
-        <h3 class="font-mono text-lg font-bold text-cyber-text group-hover:text-cyber-cyan transition-colors mb-2">
+        <h3 class="text-base font-bold text-chill-text group-hover:text-chill-indigo transition-colors mb-2">
           {cat.title}
         </h3>
 
-        <p class="text-sm text-cyber-muted leading-relaxed mb-4">
+        <p class="text-xs text-chill-muted leading-relaxed mb-4 font-sans">
           {cat.desc}
         </p>
 
-        <div class="font-mono text-xs text-cyber-accent flex items-center group-hover:translate-x-1 transition-transform">
-          Explore investigations in {cat.name} &rarr;
+        <div class="text-xs text-chill-sky flex items-center gap-1 font-medium group-hover:translate-x-1 transition-transform">
+          View case studies &rarr;
         </div>
       </a>
     ))}
