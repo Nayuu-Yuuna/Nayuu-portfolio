@@ -1,0 +1,149 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const skills = [
+  { name: 'Digital Forensics & Triage', level: '85%', desc: 'KAPE, Autopsy, FTK Imager, MFTECmd, Amcache, Prefetch, JumpLists analysis' },
+  { name: 'Memory Forensics (Volatility 3)', level: '80%', desc: 'Rootkit detection, process hollowing, DLL injection, Cobalt Strike beacon extraction' },
+  { name: 'Network Traffic Analysis (PCAP)', level: '90%', desc: 'Wireshark, Tshark, Zeek, Suricata, detecting DNS tunneling, C2 beacons, exfiltration' },
+  { name: 'Threat Hunting & SIEM/EDR', level: '85%', desc: 'Splunk SPL, Elastic KQL/ES|QL, Sysmon Event ID correlation, Sigma rules, Velociraptor' },
+  { name: 'Malware Triage & Reverse Eng', level: '70%', desc: 'Static/Dynamic triage, Ghidra decompilation, YARA rule authoring, Any.Run sandbox' },
+  { name: 'MITRE ATT&CK & Detection Eng', level: '85%', desc: 'TTP mapping, adversary emulation analysis, Atomic Red Team validation' },
+];
+
+const certifications = [
+  { name: 'Blue Team Level 1 (BTL1) / Certified CyberDefender (CCD)', status: 'In Progress / Target', year: '2026' },
+  { name: 'CompTIA Security+ / CySA+', status: 'Certified', year: '2025' },
+  { name: 'CyberDefenders - Certified Pro Analyst', status: 'Active Analyst', year: '2025' },
+];
+
+const platforms = [
+  { name: 'CyberDefenders', rank: 'Top 5%', score: '35+ DFIR Labs Solved', url: 'https://cyberdefenders.org' },
+  { name: 'Hack The Box', rank: 'Sherlocks Investigator', score: 'Forensics & Blue Labs', url: 'https://app.hackthebox.com' },
+  { name: 'TryHackMe', rank: 'SOC Level 2 Badge', score: 'Cyber Defense & Splunk', url: 'https://tryhackme.com' },
+];
+---
+
+<BaseLayout 
+  title="About & Blue Team Profile" 
+  description="SOC Analyst, DFIR Researcher, and CTF Forensics profile."
+>
+  <div class="max-w-4xl mx-auto space-y-12">
+    <!-- Header / Bio -->
+    <section class="p-6 sm:p-8 rounded-2xl bg-cyber-card border border-cyber-border space-y-6">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+        <div class="w-24 h-24 rounded-2xl bg-cyber-surface border-2 border-cyber-cyan/50 flex items-center justify-center font-mono text-3xl font-bold text-cyber-cyan shadow-[0_0_20px_rgba(0,240,255,0.2)]">
+          🛡️
+        </div>
+
+        <div class="space-y-1.5">
+          <div class="flex items-center gap-2">
+            <h1 class="text-2xl sm:text-3xl font-mono font-bold text-cyber-text">
+              Blue Team Analyst &amp; DFIR Researcher
+            </h1>
+            <span class="w-2.5 h-2.5 rounded-full bg-cyber-cyan animate-ping"></span>
+          </div>
+          <p class="text-cyber-cyan font-mono text-sm">
+            Focus: SOC Alert Triage | Memory &amp; Network Forensics | Threat Hunting
+          </p>
+          <p class="text-cyber-muted text-sm leading-relaxed max-w-xl">
+            Cybersecurity defender specializing in dissecting real-world attacks, investigating memory dumps, analyzing PCAP packet captures, and reverse-engineering threat actor tradecraft on CyberDefenders, HTB Sherlocks, and CTF challenges.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Platform Ranks -->
+    <section class="space-y-4">
+      <h2 class="text-xl font-mono font-bold text-cyber-text flex items-center gap-2">
+        <span class="text-cyber-cyan">//</span> Defense &amp; Forensics Platforms
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {platforms.map((p) => (
+          <a 
+            href={p.url} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="p-4 rounded-xl bg-cyber-card border border-cyber-border hover:border-cyber-cyan/40 transition-all block group"
+          >
+            <div class="font-mono text-xs text-cyber-muted group-hover:text-cyber-cyan transition-colors">
+              {p.name}
+            </div>
+            <div class="font-mono text-lg font-bold text-cyber-text mt-1">
+              {p.rank}
+            </div>
+            <div class="text-xs font-mono text-cyber-muted/80 mt-1">
+              {p.score}
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Skills Radar / Progress -->
+    <section class="space-y-4">
+      <h2 class="text-xl font-mono font-bold text-cyber-text flex items-center gap-2">
+        <span class="text-cyber-accent">//</span> Defense &amp; Triage Skill Set
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {skills.map((s) => (
+          <div class="p-4 rounded-xl bg-cyber-card border border-cyber-border space-y-2">
+            <div class="flex justify-between items-center font-mono text-sm">
+              <span class="font-semibold text-cyber-text">{s.name}</span>
+              <span class="text-cyber-cyan text-xs">{s.level}</span>
+            </div>
+            <div class="w-full bg-cyber-surface h-1.5 rounded-full overflow-hidden">
+              <div class="bg-gradient-to-r from-cyber-cyan to-cyber-accent h-full rounded-full" style={`width: ${s.level}`}></div>
+            </div>
+            <p class="text-xs text-cyber-muted font-mono leading-relaxed">
+              {s.desc}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Certifications -->
+    <section class="space-y-4">
+      <h2 class="text-xl font-mono font-bold text-cyber-text flex items-center gap-2">
+        <span class="text-purple-400">//</span> Certifications &amp; Milestones
+      </h2>
+      <div class="space-y-3">
+        {certifications.map((c) => (
+          <div class="p-4 rounded-xl bg-cyber-card border border-cyber-border flex flex-col sm:flex-row sm:items-center justify-between gap-2 font-mono text-sm">
+            <div class="flex items-center space-x-3">
+              <span class="text-cyber-cyan font-bold">[🛡️]</span>
+              <span class="text-cyber-text font-medium">{c.name}</span>
+            </div>
+            <div class="flex items-center space-x-3 text-xs">
+              <span class="px-2.5 py-1 rounded bg-cyber-surface text-cyber-accent border border-cyber-border">
+                {c.status}
+              </span>
+              <span class="text-cyber-muted">{c.year}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Connect / Contact -->
+    <section class="p-6 rounded-2xl bg-cyber-card/60 border border-cyber-border font-mono text-sm space-y-4">
+      <h2 class="text-lg font-bold text-cyber-text flex items-center gap-2">
+        <span class="text-cyber-cyan">&gt;</span> Connect &amp; Collaborate
+      </h2>
+      <p class="text-cyber-muted text-xs sm:text-sm leading-relaxed">
+        Always open to discussing incident case studies, threat intelligence feeds, YARA/Sigma detections, or joining forces for Blue Team &amp; CTF tournaments.
+      </p>
+      <div class="flex flex-wrap gap-3 pt-2 text-xs">
+        <a href="mailto:analyst@defendernode.local" class="px-4 py-2 rounded-lg bg-cyber-cyan text-slate-950 font-bold hover:bg-cyan-300 transition-colors">
+          Send Email
+        </a>
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-lg bg-cyber-surface border border-cyber-border text-cyber-text hover:text-cyber-cyan transition-colors">
+          GitHub Profile
+        </a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-lg bg-cyber-surface border border-cyber-border text-cyber-text hover:text-cyber-accent transition-colors">
+          LinkedIn
+        </a>
+      </div>
+    </section>
+  </div>
+</BaseLayout>

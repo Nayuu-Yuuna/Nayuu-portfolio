@@ -1,0 +1,222 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WriteupCard from '../../components/WriteupCard.astro';
+import { getCollection } from 'astro:content';
+
+const writeups = await getCollection('writeups');
+const sortedWriteups = writeups.sort((a, b) => 
+  new Date(b.data.publishDate).getTime() - new Date(a.data.publishDate).getTime()
+);
+
+const categories = [
+  'All', 
+  'DFIR', 
+  'Memory Forensics', 
+  'Network Forensics', 
+  'Threat Hunting', 
+  'Malware Analysis', 
+  'SOC Labs', 
+  'CTF Challenge'
+];
+
+const platforms = [
+  'All', 
+  'CyberDefenders', 
+  'HackTheBox', 
+  'TryHackMe', 
+  'LetsDefend', 
+  'CTF Event'
+];
+---
+
+<BaseLayout 
+  title="Writeups & Investigations" 
+  description="Blue Team DFIR reports, CyberDefenders labs, HTB Sherlocks, and CTF Forensics writeups."
+>
+  <div class="mb-8">
+    <div class="flex items-center space-x-2 text-cyber-cyan font-mono text-sm mb-2">
+      <span>//</span>
+      <span>BLUE TEAM LABS &amp; CTF WRITEUPS</span>
+    </div>
+    <h1 class="text-3xl sm:text-4xl font-mono font-bold text-cyber-text">
+      Investigations &amp; Lab Walkthroughs
+    </h1>
+    <p class="text-cyber-muted mt-2 max-w-2xl text-sm sm:text-base">
+      In-depth case studies covering CyberDefenders artifacts, Hack The Box Sherlocks, TryHackMe SOC labs, and CTF challenges.
+    </p>
+  </div>
+
+  <!-- Search & Filter Controls -->
+  <div class="p-5 rounded-2xl bg-cyber-card/85 border border-cyber-border mb-8 space-y-4">
+    <!-- Search Bar -->
+    <div class="relative">
+      <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-cyber-muted">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+      </span>
+      <input 
+        type="text" 
+        id="search-input" 
+        placeholder="Search by title, artifact (pcap, dmp, evtx), tool (volatility, wireshark, splunk), MITRE ID..." 
+        class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-cyber-surface border border-cyber-border text-cyber-text placeholder-cyber-muted/60 text-sm font-mono focus:outline-none focus:border-cyber-cyan focus:ring-1 focus:ring-cyber-cyan transition-all"
+      />
+    </div>
+
+    <!-- Category Filter Pills -->
+    <div class="flex flex-wrap items-center gap-2 font-mono text-xs">
+      <span class="text-cyber-muted mr-1">Domain:</span>
+      {categories.map((cat) => (
+        <button
+          type="button"
+          class={`filter-btn px-3 py-1.5 rounded-lg border transition-all ${
+            cat === 'All'
+              ? 'active-cat bg-cyber-cyan/10 text-cyber-cyan border-cyber-cyan/50'
+              : 'bg-cyber-surface text-cyber-muted border-cyber-border hover:border-cyber-muted'
+          }`}
+          data-category={cat}
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
+
+    <!-- Platform Filter Pills -->
+    <div class="flex flex-wrap items-center gap-2 font-mono text-xs pt-2 border-t border-cyber-border/40">
+      <span class="text-cyber-muted mr-1">Platform:</span>
+      {platforms.map((plat) => (
+        <button
+          type="button"
+          class={`platform-btn px-2.5 py-1 rounded-lg border transition-all ${
+            plat === 'All'
+              ? 'active-plat bg-cyber-accent/10 text-cyber-accent border-cyber-accent/50'
+              : 'bg-cyber-surface text-cyber-muted border-cyber-border hover:border-cyber-muted'
+          }`}
+          data-platform={plat}
+        >
+          {plat}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <!-- Writeups Grid -->
+  <div id="writeups-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {sortedWriteups.map((post) => (
+      <div 
+        class="writeup-item"
+        data-title={post.data.title.toLowerCase()}
+        data-desc={post.data.description.toLowerCase()}
+        data-category={post.data.category}
+        data-platform={post.data.platform}
+        data-difficulty={post.data.difficulty}
+        data-tags={post.data.tags.join(' ').toLowerCase()}
+      >
+        <WriteupCard
+          title={post.data.title}
+          description={post.data.description}
+          slug={post.slug}
+          publishDate={post.data.publishDate}
+          category={post.data.category}
+          platform={post.data.platform}
+          difficulty={post.data.difficulty}
+          tags={post.data.tags}
+          verdict={post.data.verdict}
+        />
+      </div>
+    ))}
+  </div>
+
+  <!-- Empty State -->
+  <div id="empty-state" class="hidden text-center py-16 font-mono">
+    <div class="inline-block p-4 rounded-full bg-cyber-card border border-cyber-border mb-3 text-cyber-cyan">
+      <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+      </svg>
+    </div>
+    <h3 class="text-lg font-bold text-cyber-text">No reports or writeups found</h3>
+    <p class="text-sm text-cyber-muted mt-1">Try searching with another keyword or resetting the filter options.</p>
+  </div>
+</BaseLayout>
+
+<script>
+  let activeCategory = 'All';
+  let activePlatform = 'All';
+  let searchQuery = '';
+
+  const searchInput = document.getElementById('search-input') as HTMLInputElement | null;
+  const catButtons = document.querySelectorAll('.filter-btn');
+  const platButtons = document.querySelectorAll('.platform-btn');
+  const items = document.querySelectorAll('.writeup-item') as NodeListOf<HTMLElement>;
+  const emptyState = document.getElementById('empty-state');
+
+  function filterItems() {
+    let visibleCount = 0;
+
+    items.forEach((item) => {
+      const title = item.dataset.title || '';
+      const desc = item.dataset.desc || '';
+      const category = item.dataset.category || '';
+      const platform = item.dataset.platform || '';
+      const tags = item.dataset.tags || '';
+
+      const matchesCat = activeCategory === 'All' || category === activeCategory;
+      const matchesPlat = activePlatform === 'All' || platform === activePlatform;
+      const matchesSearch = !searchQuery || 
+        title.includes(searchQuery) || 
+        desc.includes(searchQuery) || 
+        tags.includes(searchQuery) || 
+        category.toLowerCase().includes(searchQuery) ||
+        platform.toLowerCase().includes(searchQuery);
+
+      if (matchesCat && matchesPlat && matchesSearch) {
+        item.style.display = 'block';
+        visibleCount++;
+      } else {
+        item.style.display = 'none';
+      }
+    });
+
+    if (emptyState) {
+      emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+  }
+
+  // Category buttons
+  catButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      catButtons.forEach(b => {
+        b.classList.remove('bg-cyber-cyan/10', 'text-cyber-cyan', 'border-cyber-cyan/50');
+        b.classList.add('bg-cyber-surface', 'text-cyber-muted', 'border-cyber-border');
+      });
+      btn.classList.add('bg-cyber-cyan/10', 'text-cyber-cyan', 'border-cyber-cyan/50');
+      btn.classList.remove('bg-cyber-surface', 'text-cyber-muted', 'border-cyber-border');
+
+      activeCategory = (btn as HTMLElement).dataset.category || 'All';
+      filterItems();
+    });
+  });
+
+  // Platform buttons
+  platButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      platButtons.forEach(b => {
+        b.classList.remove('bg-cyber-accent/10', 'text-cyber-accent', 'border-cyber-accent/50');
+        b.classList.add('bg-cyber-surface', 'text-cyber-muted', 'border-cyber-border');
+      });
+      btn.classList.add('bg-cyber-accent/10', 'text-cyber-accent', 'border-cyber-accent/50');
+      btn.classList.remove('bg-cyber-surface', 'text-cyber-muted', 'border-cyber-border');
+
+      activePlatform = (btn as HTMLElement).dataset.platform || 'All';
+      filterItems();
+    });
+  });
+
+  // Search input
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = (e.target as HTMLInputElement).value.trim().toLowerCase();
+      filterItems();
+    });
+  }
+</script>

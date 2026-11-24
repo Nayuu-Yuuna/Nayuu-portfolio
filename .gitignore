@@ -1,0 +1,19 @@
+# Build output
+dist/
+
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.production
+
+# Astro cache & temporary files
+.astro/
+
+# IDE / OS specific files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
